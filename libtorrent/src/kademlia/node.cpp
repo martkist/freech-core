@@ -59,7 +59,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "libtorrent/kademlia/dht_get.hpp"
 #include "libtorrent/rsa.hpp"
 
-#include "../../src/twister.h"
+#include "../../src/freech.h"
 
 /* refresh dht itens we know by putting them to other peers every 60 minutes.
  * this period must be small enough to ensure persistency and big enough to

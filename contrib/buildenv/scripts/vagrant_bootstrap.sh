@@ -1,7 +1,7 @@
 #!/bin/bash
 
-TWISTER_CORE_PATH='/home/vagrant/twister-core'
-TWISTER_HOME='/home/vagrant/.twister'
+FREECH_CORE_PATH='/home/vagrant/freech-core'
+FREECH_HOME='/home/vagrant/.freech'
 AS_VAGRANT='sudo -u vagrant'
 
 if [ -n "$1" ]; then
@@ -29,7 +29,7 @@ function checkfail {
 
 
 echo
-echo 'Running bootstrap for twister-core'
+echo 'Running bootstrap for freech-core'
 echo "
 bootstrap=$bootstrap
 compile=$compile
@@ -41,11 +41,11 @@ service ntp stop
 ntpdate ntp1.sp.se
 service ntp start
 echo "$timezone" | sudo tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata
-#$AS_VAGRANT ln -s /vagrant $TWISTER_CORE_PATH
+#$AS_VAGRANT ln -s /vagrant $FREECH_CORE_PATH
 
 
 echo '.. fixing permissions'
-cd $TWISTER_CORE_PATH
+cd $FREECH_CORE_PATH
 find /vagrant/scripts -type d -exec chmod 755 {} \;
 find /vagrant/scripts -type f -exec chmod 644 {} \;
 chmod 755 /vagrant/scripts/bin/* 
@@ -60,17 +60,17 @@ fi
 
 
 echo '.. configuration & web gui'
-if [ ! -d "$TWISTER_HOME" ]; then
-	$AS_VAGRANT mkdir $TWISTER_HOME
-	cd $TWISTER_HOME
-	$AS_VAGRANT touch twister.conf
-	echo -e "rpcuser=user\nrpcpassword=pwd\nrpcallowip=*" > twister.conf
-	chmod 600 twister.conf
+if [ ! -d "$FREECH_HOME" ]; then
+	$AS_VAGRANT mkdir $FREECH_HOME
+	cd $FREECH_HOME
+	$AS_VAGRANT touch freech.conf
+	echo -e "rpcuser=user\nrpcpassword=pwd\nrpcallowip=*" > freech.conf
+	chmod 600 freech.conf
 fi
 
-if [ ! -d "$TWISTER_HOME/html" ]; then
-	cd "$TWISTER_HOME"
-	git clone https://github.com/miguelfreitas/twister-html.git html
+if [ ! -d "$FREECH_HOME/html" ]; then
+	cd "$FREECH_HOME"
+	git clone https://github.com/martkist/freech-html.git html
 	checkfail
 fi
 
@@ -82,7 +82,7 @@ echo '.. bootstrapping'
 	apt-get install -y git build-essential autoconf libtool libssl-dev libboost-all-dev libdb++-dev libminiupnpc-dev openssl 
 	checkfail
 
-	cd $TWISTER_CORE_PATH
+	cd $FREECH_CORE_PATH
 	$AS_VAGRANT ./bootstrap.sh
 	checkfail
 fi
@@ -99,9 +99,9 @@ fi
 
 
 if [ $run -eq 1 ]; then
-	echo '.. launching twisterd'
-	cd $TWISTER_CORE_PATH
-	$AS_VAGRANT -H ./twisterd -debug -daemon
+	echo '.. launching freechd'
+	cd $FREECH_CORE_PATH
+	$AS_VAGRANT -H ./freechd -debug -daemon
 fi
 
 
@@ -116,10 +116,10 @@ Create your account !
   
 If you want to do some development or other stuff then...
  $ vargrant ssh
- $ source twister-core/contrib/buildenv/scripts/activate
+ $ source freech-core/contrib/buildenv/scripts/activate
  
  This will give you some nice to have commands like
- * twister start|stop   -  to start and stop the server
+ * freech start|stop   -  to start and stop the server
  * twisted              -  alias to ~/twisted-core/twisted
 
 

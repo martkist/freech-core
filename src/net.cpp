@@ -1127,7 +1127,7 @@ void ThreadMapPort()
             }
         }
 
-        string strDesc = "twister " + FormatFullVersion();
+        string strDesc = "freech " + FormatFullVersion();
 
         try {
             loop {
@@ -1229,7 +1229,7 @@ void _ThreadDNSAddressSeed(const char *strDNS)
                     found++;
                 }
                 
-                // non std ports hack: see twister-seeder
+                // non std ports hack: see freech-seeder
                 string nonStdHost = "nonstd." + seed.host;
                 if (LookupHost(nonStdHost.c_str(), vIPs))
                 {
@@ -1678,7 +1678,7 @@ bool BindListenPort(const CService &addrBind, string& strError)
     {
         int nErr = WSAGetLastError();
         if (nErr == WSAEADDRINUSE)
-            strError = strprintf(_("Unable to bind to %s on this computer. Twister is probably already running."), addrBind.ToString().c_str());
+            strError = strprintf(_("Unable to bind to %s on this computer. Freech is probably already running."), addrBind.ToString().c_str());
         else
             strError = strprintf(_("Unable to bind to %s on this computer (bind returned error %d, %s)"), addrBind.ToString().c_str(), nErr, strerror(nErr));
         printf("%s\n", strError.c_str());

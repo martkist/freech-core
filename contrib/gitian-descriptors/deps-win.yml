@@ -1,5 +1,5 @@
 ---
-name: "twister-deps"
+name: "freech-deps"
 suites:
 - "precise"
 architectures:
@@ -77,5 +77,5 @@ script: |
     done
     #
     cd $INSTALLPREFIX
-    find include lib | sort | zip -X@ $OUTDIR/twister-deps-win$BITS-gitian-r13.zip
+    find include lib | sort | zip -X@ $OUTDIR/freech-deps-win$BITS-gitian-r13.zip
   done # for BITS in

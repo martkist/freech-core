@@ -121,12 +121,12 @@ OBJS= \
     obj/txdb.o \
     obj/chainparams.o \
     obj/dhtproxy.o \
-    obj/twister.o \
-    obj/twister_rss.o \
-    obj/twister_utils.o
+    obj/freech.o \
+    obj/freech_rss.o \
+    obj/freech_utils.o
 
 
-all: twisterd
+all: freechd
 
 test check: test_bitcoin FORCE
 	./test_bitcoin
@@ -190,7 +190,7 @@ obj/%.o: %.cpp
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-twisterd: $(OBJS:obj/%=obj/%)
+freechd: $(OBJS:obj/%=obj/%)
 	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
 	arm-linux-androideabi-strip -g $@
 
@@ -207,7 +207,7 @@ test_bitcoin: $(TESTOBJS) $(filter-out obj/init.o obj/bitcoind.o,$(OBJS:obj/%=ob
 	$(LINK) $(xCXXFLAGS) -o $@ $(LIBPATHS) $^ $(TESTLIBS) $(xLDFLAGS) $(LIBS)
 
 clean:
-	-rm -f twisterd test_bitcoin
+	-rm -f freechd test_bitcoin
 	-rm -f obj/*.o
 	-rm -f obj-test/*.o
 	-rm -f obj/*.P

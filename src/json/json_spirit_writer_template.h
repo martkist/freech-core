@@ -87,7 +87,7 @@ namespace json_spirit
                 result += non_printable_to_string< String_type >( unsigned_c );
             }
             */
-            // [MF] twister uses utf8 strings (and not any sort of wide char).
+            // [MF] freech uses utf8 strings (and not any sort of wide char).
             // only control characters need to be escaped, per JSON RFC spec.
             if( c >=0 && c <= 0x1f ) {
                 result += non_printable_to_string< String_type >( c );

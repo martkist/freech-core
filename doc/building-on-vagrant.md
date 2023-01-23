@@ -1,6 +1,6 @@
 # Vagrant + Ubuntu building instructions
 
-This will run a virtual machine with all tools required to build and run twister
+This will run a virtual machine with all tools required to build and run freech
 using Vagrant. 
 This will probably work wherever vagrant can be installed so Windows, Mac, Linux 
 at least
@@ -11,8 +11,8 @@ at least
 
 
 ## Install
-1. git clone https://github.com/miguelfreitas/twister-core.git
-2. cd twister-core/contrib/buildenv
+1. git clone https://github.com/martkist/freech-core.git
+2. cd freech-core/contrib/buildenv
 3. vagrant up
 
 

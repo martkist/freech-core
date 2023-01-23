@@ -1,25 +1,25 @@
 #
-# Dockerfile for building Twister peer-to-peer micro-blogging
+# Dockerfile for building Freech peer-to-peer freedom of speech
 #
 FROM ubuntu:20.04
 
-# Install twister-core
+# Install freech-core
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive  apt-get install -y iproute2 git autoconf libtool build-essential libboost-all-dev libssl-dev libdb++-dev libminiupnpc-dev automake && apt-get clean
-RUN git clone https://github.com/miguelfreitas/twister-core.git
-COPY . /twister-core
-RUN cd twister-core && \
+RUN git clone https://github.com/martkist/freech-core.git
+COPY . /freech-core
+RUN cd freech-core && \
     ./bootstrap.sh && \
     make
 
-# Install twister-html
-RUN git clone https://github.com/miguelfreitas/twister-html.git /twister-html
+# Install freech-html
+RUN git clone https://github.com/martkist/freech-html.git /freech-html
 
 # Configure HOME directory
-# and persist twister data directory as a volume
+# and persist freech data directory as a volume
 ENV HOME /root
-VOLUME /root/.twister
+VOLUME /root/.freech
 
-# Run twisterd by default
-ENTRYPOINT ["/twister-core/docker-entrypoint.sh"]
+# Run freechd by default
+ENTRYPOINT ["/freech-core/docker-entrypoint.sh"]
 EXPOSE 28332

@@ -47,7 +47,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #include "libtorrent/time.hpp"
 
-#include "../../src/twister.h"
+#include "../../src/freech.h"
 
 #if TORRENT_USE_MLOCK && !defined TORRENT_WINDOWS
 #include <sys/mman.h>

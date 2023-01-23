@@ -1,6 +1,6 @@
 TEMPLATE = app
-TARGET = twisterd
-macx:TARGET = "Twisterd"
+TARGET = freechd
+macx:TARGET = "Freechd"
 VERSION = 0.8.2
 INCLUDEPATH += src src/json src/qt
 QT += core gui network
@@ -184,9 +184,9 @@ HEADERS +=  \
     src/scrypt.h \
     src/utf8core.h \
     src/dhtproxy.h \
-    src/twister.h \
-    src/twister_rss.h \
-    src/twister_utils.h
+    src/freech.h \
+    src/freech_rss.h \
+    src/freech_utils.h
 
 #    src/qt/bitcoingui.h
 #    src/qt/transactiontablemodel.h \
@@ -262,9 +262,9 @@ SOURCES += \ #src/qt/bitcoin.cpp \
     src/txdb.cpp \
     src/scrypt.cpp \
     src/dhtproxy.cpp \
-    src/twister.cpp \
-    src/twister_rss.cpp \
-    src/twister_utils.cpp
+    src/freech.cpp \
+    src/freech_rss.cpp \
+    src/freech_utils.cpp
 
 #    src/qt/guiutil.cpp \
 #    src/qt/bitcoingui.cpp \

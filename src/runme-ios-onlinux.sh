@@ -1,4 +1,4 @@
-#twister building script for IOS on linux
+#freech building script for IOS on linux
 
 export IPHONE_IP=""
 export IOS_SDK=/usr/share/iPhoneOS6.0.sdk
@@ -88,8 +88,8 @@ cd ../..
 echo 'Building libtorrent...'
 [ -f ../libtorrent/src/ios-build/libtorrent-rasterbar.a ] || make -C ../libtorrent/src -f makefile.ios -j$PJC
 
-echo 'Building twister...'
+echo 'Building freech...'
 make -f makefile.ios -j$PJC
 
-echo "Installing twisterd to your device..."
+echo "Installing freechd to your device..."
 [ -n "$IPHONE_IP" ] && make -f makefile.ios install

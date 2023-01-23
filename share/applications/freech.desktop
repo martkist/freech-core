@@ -1,11 +1,11 @@
 [Desktop Entry]
 Version=1.0
 Encoding=UTF-8
-Name=twister
+Name=freech
 GenericName=P2P microblogging
 Comment=P2P microblogging
-Exec=/usr/bin/twister-control --launch
+Exec=/usr/bin/freech-control --launch
 Terminal=false
-Icon=/usr/share/pixmaps/twister128.png
+Icon=/usr/share/pixmaps/freech128.png
 Type=Application
 Categories=Network;P2P;

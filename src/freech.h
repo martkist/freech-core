@@ -1,5 +1,5 @@
-#ifndef TWISTER_H
-#define TWISTER_H
+#ifndef FREECH_H
+#define FREECH_H
 
 #include "util.h"
 #include "key.h"
@@ -24,10 +24,10 @@ namespace libtorrent {
     class entry;
 }
 
-class twister
+class freech
 {
 public:
-    twister();
+    freech();
 };
 
 void preinitSessionTorrent();
@@ -62,4 +62,4 @@ void dhtPutDataSigned(std::string const &username, std::string const &resource, 
 
 json_spirit::Object getLibtorrentSessionStatus();
 
-#endif // TWISTER_H
+#endif // FREECH_H

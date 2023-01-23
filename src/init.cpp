@@ -15,7 +15,7 @@
 #include "ui_interface.h"
 #include "checkpoints.h"
 #include "softcheckpoint.h"
-#include "twister.h"
+#include "freech.h"
 
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -116,7 +116,7 @@ void Shutdown()
     TRY_LOCK(cs_Shutdown, lockShutdown);
     if (!lockShutdown) return;
 
-    RenameThread("twister-shutoff");
+    RenameThread("freech-shutoff");
     nTransactionsUpdated++;
     stopSessionTorrent();
     StopRPCThreads();
@@ -184,8 +184,8 @@ std::string HelpMessage()
 {
     string strUsage = _("Options:") + "\n";
     strUsage += "  -?                     " + _("This help message") + "\n";
-    strUsage += "  -conf=<file>           " + _("Specify configuration file (default: ~/.twister/twister.conf)") + "\n";
-    strUsage += "  -pid=<file>            " + _("Specify pid file (default: twisterd.pid)") + "\n";
+    strUsage += "  -conf=<file>           " + _("Specify configuration file (default: ~/.freech/freech.conf)") + "\n";
+    strUsage += "  -pid=<file>            " + _("Specify pid file (default: freechd.pid)") + "\n";
     strUsage += "  -gen                   " + _("Generate coins (default: 0)") + "\n";
     strUsage += "  -datadir=<dir>         " + _("Specify data directory") + "\n";
     strUsage += "  -htmldir=<dir>         " + _("Specify HTML directory to serve (default: <data>/html)") + "\n";
@@ -249,7 +249,7 @@ std::string HelpMessage()
     strUsage += "  -upgradewallet         " + _("Upgrade wallet to latest format") + "\n";
     strUsage += "  -keypool=<n>           " + _("Set key pool size to <n> (default: 100)") + "\n";
     strUsage += "  -rescan                " + _("Rescan the block chain for missing wallet transactions") + "\n";
-    strUsage += "  -salvagewallet         " + _("Attempt to recover private keys from a corrupt twisterwallet.dat") + "\n";
+    strUsage += "  -salvagewallet         " + _("Attempt to recover private keys from a corrupt freechwallet.dat") + "\n";
     strUsage += "  -checkblocks=<n>       " + _("How many blocks to check at startup (default: 500, 0 = all)") + "\n";
     strUsage += "  -checklevel=<n>        " + _("How thorough the block verification is (0-4, default: 3)") + "\n";
     strUsage += "  -txindex               " + _("Maintain a full transaction index (default: 0)") + "\n";
@@ -290,7 +290,7 @@ struct CImportingNow
 
 void ThreadImport(std::vector<boost::filesystem::path> vImportFiles)
 {
-    RenameThread("twister-loadblk");
+    RenameThread("freech-loadblk");
 
     // -reindex
     if (fReindex) {
@@ -521,12 +521,12 @@ bool AppInit2(boost::thread_group& threadGroup)
     if (file) fclose(file);
     static boost::interprocess::file_lock lock(pathLockFile.string().c_str());
     if (!lock.try_lock())
-        return InitError(strprintf(_("Cannot obtain a lock on data directory %s. Twister is probably already running."), strDataDir.c_str()));
+        return InitError(strprintf(_("Cannot obtain a lock on data directory %s. Freech is probably already running."), strDataDir.c_str()));
 
     if (GetBoolArg("-shrinkdebugfile", !fDebug))
         ShrinkDebugFile();
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    printf("Twister version %s (%s)\n", FormatFullVersion().c_str(), CLIENT_DATE.c_str());
+    printf("Freech version %s (%s)\n", FormatFullVersion().c_str(), CLIENT_DATE.c_str());
     printf("Using OpenSSL version %s\n", SSLeay_version(SSLEAY_VERSION));
     if (!fLogTimestamps)
         printf("Startup time: %s\n", DateTimeStrFormat("%Y-%m-%d %H:%M:%S", GetTime()).c_str());
@@ -536,7 +536,7 @@ bool AppInit2(boost::thread_group& threadGroup)
     std::ostringstream strErrors;
 
     if (fDaemon)
-        fprintf(stdout, "Twister server starting\n");
+        fprintf(stdout, "Freech server starting\n");
 
     int64 nStart;
 
@@ -567,26 +567,26 @@ bool AppInit2(boost::thread_group& threadGroup)
     if (GetBoolArg("-salvagewallet", false))
     {
         // Recover readable keypairs:
-        if (!CWalletDB::Recover(bitdb, "twisterwallet.dat", true))
+        if (!CWalletDB::Recover(bitdb, "freechwallet.dat", true))
             return false;
     }
 
-    if (filesystem::exists(GetDataDir() / "twisterwallet.dat"))
+    if (filesystem::exists(GetDataDir() / "freechwallet.dat"))
     {
-        CDBEnv::VerifyResult r = bitdb.Verify("twisterwallet.dat", CWalletDB::Recover);
+        CDBEnv::VerifyResult r = bitdb.Verify("freechwallet.dat", CWalletDB::Recover);
         if (r == CDBEnv::RECOVER_OK)
         {
-            string msg = strprintf(_("Warning: twisterwallet.dat corrupt, data salvaged!"
-                                     " Original twisterwallet.dat saved as wallet.{timestamp}.bak in %s; if"
+            string msg = strprintf(_("Warning: freechwallet.dat corrupt, data salvaged!"
+                                     " Original freechwallet.dat saved as wallet.{timestamp}.bak in %s; if"
                                      " your balance or transactions are incorrect you should"
                                      " restore from a backup."), strDataDir.c_str());
             InitWarning(msg);
         }
         if (r == CDBEnv::RECOVER_FAIL)
-            return InitError(_("twisterwallet.dat corrupt, salvage failed"));
+            return InitError(_("freechwallet.dat corrupt, salvage failed"));
     }
 
-    // ********************************************************* Step 5 1/2: preinit twister/torrent before network
+    // ********************************************************* Step 5 1/2: preinit freech/torrent before network
 
     preinitSessionTorrent();
 
@@ -858,28 +858,28 @@ bool AppInit2(boost::thread_group& threadGroup)
 
     nStart = GetTimeMillis();
     bool fFirstRun = true;
-    pwalletMain = new CWallet("twisterwallet.dat");
+    pwalletMain = new CWallet("freechwallet.dat");
     DBErrors nLoadWalletRet = pwalletMain->LoadWallet(fFirstRun);
     if (nLoadWalletRet != DB_LOAD_OK)
     {
         if (nLoadWalletRet == DB_CORRUPT)
-            strErrors << _("Error loading twisterwallet.dat: Wallet corrupted") << "\n";
+            strErrors << _("Error loading freechwallet.dat: Wallet corrupted") << "\n";
         else if (nLoadWalletRet == DB_NONCRITICAL_ERROR)
         {
-            string msg(_("Warning: error reading twisterwallet.dat! All keys read correctly, but transaction data"
+            string msg(_("Warning: error reading freechwallet.dat! All keys read correctly, but transaction data"
                          " or address book entries might be missing or incorrect."));
             InitWarning(msg);
         }
         else if (nLoadWalletRet == DB_TOO_NEW)
-            strErrors << _("Error loading twisterwallet.dat: Wallet requires newer version of Bitcoin") << "\n";
+            strErrors << _("Error loading freechwallet.dat: Wallet requires newer version of Bitcoin") << "\n";
         else if (nLoadWalletRet == DB_NEED_REWRITE)
         {
-            strErrors << _("Wallet needed to be rewritten: restart Twister to complete") << "\n";
+            strErrors << _("Wallet needed to be rewritten: restart Freech to complete") << "\n";
             printf("%s", strErrors.str().c_str());
             return InitError(strErrors.str());
         }
         else
-            strErrors << _("Error loading twisterwallet.dat") << "\n";
+            strErrors << _("Error loading freechwallet.dat") << "\n";
     }
 
     if (GetBoolArg("-upgradewallet", fFirstRun))
@@ -925,7 +925,7 @@ bool AppInit2(boost::thread_group& threadGroup)
         pindexRescan = pindexGenesisBlock;
     else
     {
-        CWalletDB walletdb("twisterwallet.dat");
+        CWalletDB walletdb("freechwallet.dat");
         CBlockLocator locator;
         if (walletdb.ReadBestBlock(locator))
             pindexRescan = locator.GetBlockIndex();

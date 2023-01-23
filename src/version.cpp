@@ -9,11 +9,11 @@
 // for both bitcoind and bitcoin-qt, to make it harder for attackers to
 // target servers or GUI users specifically.
 #if defined(__ANDROID__)
-const std::string CLIENT_NAME("twisterd_android");
+const std::string CLIENT_NAME("freechd_android");
 #elif defined(WIN32)
-const std::string CLIENT_NAME("twisterd_windows");
+const std::string CLIENT_NAME("freechd_windows");
 #else
-const std::string CLIENT_NAME("twisterd");
+const std::string CLIENT_NAME("freechd");
 #endif
 
 // Client version number

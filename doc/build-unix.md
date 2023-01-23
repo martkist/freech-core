@@ -1,6 +1,6 @@
 UNIX BUILD NOTES
 ====================
-Some notes on how to build twister in Unix. 
+Some notes on how to build freech in Unix. 
 
 To Build
 ---------------------

@@ -111,13 +111,13 @@ version_check() {
 
 configure_ac="configure.ac"
 
-(test -f $configure_ac && test -f src/twister.cpp) || {
+(test -f $configure_ac && test -f src/freech.cpp) || {
   printerr "***Error***: Run this script from the top-level source directory."
   exit 1
 }
 
 echo
-printbold "Bootstrapping autotools for twister"
+printbold "Bootstrapping autotools for freech"
 echo
 
 REQUIRED_AUTOCONF_VERSION=`cat $configure_ac | grep '^AC_PREREQ' |

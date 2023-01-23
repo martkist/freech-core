@@ -1,4 +1,4 @@
-twister group chat draft
+freech group chat draft
 ========================
 
 group chat is a private and encrypted timeline shared among some users
@@ -10,7 +10,7 @@ impossible (very difficult?) to implement a distributed torrent with
 multiple writers. (a clash occurs when two writers try to send the 
 same piece number)
 
-therefore, twister's group chat is a special case of direct messages
+therefore, freech's group chat is a special case of direct messages
 using a private key pair (outside of the blockchain). non-members do not
 know about group chat creation as public key is never published.
 
@@ -31,7 +31,7 @@ group_members {
 
 it is true that, since every member knows both private/public keys of
 the group, symmetric-key could have been used for group chat's messages.
-however we reuse the same twister infrastructure of original DMs.
+however we reuse the same freech infrastructure of original DMs.
 any group chats, invites and messages are indistinguible from normal 
 DMs to non-members.
 
@@ -51,7 +51,7 @@ new RPCs for group chat:
   group aliases are prepended with "*" so they are not valid usernames
   and may not be propagated accidentaly to the network.
   
-  group aliases are only valid locally, each twisterd instance will
+  group aliases are only valid locally, each freechd instance will
   create its own alias upon receiving an invitation.
 
 - listgroups

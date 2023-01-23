@@ -330,7 +330,7 @@ bool CAddrMan::Add_(const CAddress &addr, const CNetAddr& source, int64 nTimePen
         // add services
         pinfo->nServices |= addr.nServices;
 
-        // port changed to random with twisterd >= 0.9.30
+        // port changed to random with freechd >= 0.9.30
         // we must replace old port info with the newer one
         if( pinfo->GetPort() != addr.GetPort() && 
             pinfo->GetPort() == Params().GetDefaultPort() ) {

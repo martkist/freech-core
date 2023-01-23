@@ -24,7 +24,7 @@ serverUrl = "http://user:pwd@127.0.0.1:28332"
 if len(sys.argv) > 1:
     serverUrl = sys.argv[1]
 
-twister = AuthServiceProxy(serverUrl)
+freech = AuthServiceProxy(serverUrl)
 
 class User:
     avatar = ""
@@ -41,10 +41,10 @@ try:
 except:
     db = MyDb()
     db.usernames = {}
-    nextHash = twister.getblockhash(0)
+    nextHash = freech.getblockhash(0)
 
 while True:
-    block = twister.getblock(nextHash)
+    block = freech.getblock(nextHash)
     db.lastBlockHash = block["hash"]
     print str(block["height"]) + "\r",
     usernames = block["usernames"]
@@ -61,12 +61,12 @@ for u in db.usernames.keys():
     if db.usernames[u].updateTime + cacheTimeout < now:
 
         print "getting avatar for", u, "..."
-        d = twister.dhtget(u,"avatar","s")
+        d = freech.dhtget(u,"avatar","s")
         if len(d) == 1 and d[0].has_key("p") and d[0]["p"].has_key("v"):
             db.usernames[u].avatar = d[0]["p"]["v"]
 
         print "getting profile for", u, "..."
-        d = twister.dhtget(u,"profile","s")
+        d = freech.dhtget(u,"profile","s")
         if len(d) == 1 and d[0].has_key("p") and d[0]["p"].has_key("v"):
             db.usernames[u].fullname = d[0]["p"]["v"]["fullname"]
             db.usernames[u].location = d[0]["p"]["v"]["location"]

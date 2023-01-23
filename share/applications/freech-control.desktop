@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=freech Control Center
+GenericName=freech Control Center
+Comment=freech Control Center
+Exec=/usr/bin/freech-control --gui
+Terminal=false
+Icon=/usr/share/pixmaps/freech128.png
+Type=Application
+Categories=Network;P2P;

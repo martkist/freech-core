@@ -1,5 +1,5 @@
-#ifndef TWISTER_UTILS_H
-#define TWISTER_UTILS_H
+#ifndef FREECH_UTILS_H
+#define FREECH_UTILS_H
 
 #include "json/json_spirit.h"
 #include "libtorrent/entry.hpp"
@@ -39,10 +39,10 @@ struct UserData {
 };
 
 
-class twister_utils
+class freech_utils
 {
 public:
-    twister_utils();
+    freech_utils();
 };
 
 int load_file(std::string const& filename, std::vector<char>& v, int limit = 8000000);
@@ -71,4 +71,4 @@ libtorrent::sha1_hash dhtTargetHash(std::string const &username, std::string con
 
 std::string getRandomGroupAlias();
 
-#endif // TWISTER_UTILS_H
+#endif // FREECH_UTILS_H

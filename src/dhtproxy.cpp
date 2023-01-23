@@ -1,6 +1,6 @@
 // Copyright (c) 2014 Miguel Freitas
 // tunnel DHT requests into tcp connection
-// see: https://groups.google.com/forum/#!topic/twister-dev/uKjFGSw24yA
+// see: https://groups.google.com/forum/#!topic/freech-dev/uKjFGSw24yA
 
 #include <boost/assign/list_of.hpp> // for 'map_list_of()'
 #include <boost/assign.hpp>
@@ -18,8 +18,8 @@
 #include "uint256.h"
 #include "script.h"
 #include "init.h"
-#include "twister.h"
-#include "twister_utils.h"
+#include "freech.h"
+#include "freech_utils.h"
 
 //#define dbgprintf OutputDebugStringF
 #define dbgprintf(...) // no debug printf
@@ -245,7 +245,7 @@ namespace DhtProxy
             dbgprintf("DhtProxy::dhtgetReplyReceived: empty data from %s\n", 
                       pfrom->addr.ToString().c_str());
                   
-            // No reply - these fields are not used, we just want cast in twister.cpp:dhtget to fail
+            // No reply - these fields are not used, we just want cast in freech.cpp:dhtget to fail
             dht_reply_data_done_alert dd("","",false,false,false);
             dhtgetMapPost(ih, dd);
         } else {

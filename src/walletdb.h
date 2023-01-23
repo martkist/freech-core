@@ -59,7 +59,7 @@ public:
     }
 };
 
-/** Access to the wallet database (twisterwallet.dat) */
+/** Access to the wallet database (freechwallet.dat) */
 class CWalletDB : public CDB
 {
 public:
@@ -171,7 +171,7 @@ public:
         return Erase(std::make_pair(std::string("pool"), nPool));
     }
 
-    // Settings are no longer stored in twisterwallet.dat; these are
+    // Settings are no longer stored in freechwallet.dat; these are
     // used only for backwards compatibility:
     template<typename T>
     bool ReadSetting(const std::string& strKey, T& value)

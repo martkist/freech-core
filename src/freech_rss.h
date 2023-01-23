@@ -1,5 +1,5 @@
-#ifndef TWISTER_RSS_H
-#define TWISTER_RSS_H
+#ifndef FREECH_RSS_H
+#define FREECH_RSS_H
 
 #include "json/json_spirit.h"
 #include <string>
@@ -21,4 +21,4 @@ extern void encodeXmlCharacters (std::string& data);
 #endif
 extern int generateRSS(std::string uri, std::string *output);
 
-#endif // TWISTER_RSS_H
+#endif // FREECH_RSS_H

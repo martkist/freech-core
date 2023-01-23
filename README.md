@@ -1,14 +1,14 @@
-# twister - p2p microblogging
-
-<http://www.twister.net.co>
+# Freech - p2p freedom of speech
 
 Bitcoin Copyright (c) 2009 - 2013 Bitcoin Core developers  
 libtorrent Copyright (c) 2003 - 2007, Arvid Norberg  
-twister Copyright (c) 2013 - 2018 Miguel Freitas
+twister Copyright (c) 2013 - 2018 Miguel Freitas  
+Freech Copyright (c) 2023 Martkist Core developers  
 
-## What is twister?
+## What is Freech?
 
-twister is an experimental peer-to-peer microblogging software.
+Freech is an experimental peer-to-peer microblogging software forked from 
+[twister-core](https://github.com/miguelfreitas/twister-core) by Miguel Freitas.
 
 User registration and authentication is provided by a bitcoin-like network, so
 it is completely decentralized (does not depend on any central authority).
@@ -23,22 +23,22 @@ not interoperate with existing networks (on purpose).
 
 Please follow the instructions for your platform:
 
-- [UNIX](https://github.com/miguelfreitas/twister-core/blob/master/doc/build-unix.md)
-- [Debian/Ubuntu](https://github.com/miguelfreitas/twister-core/blob/master/doc/building-on-ubuntu-debian.md)
-- [OS X](https://github.com/miguelfreitas/twister-core/blob/master/doc/build-osx.md)
-- [Windows (untested)](https://github.com/miguelfreitas/twister-core/wiki/Compiling-for-Windows)
+- [UNIX](https://github.com/martkist/freech-core/blob/master/doc/build-unix.md)
+- [Debian/Ubuntu](https://github.com/martkist/freech-core/blob/master/doc/building-on-ubuntu-debian.md)
+- [OS X](https://github.com/martkist/freech-core/blob/master/doc/build-osx.md)
+- [Windows (untested)](https://github.com/martkist/freech-core/wiki/Compiling-for-Windows)
 
-> According to our tests, at least 1GB of RAM is needed to compile Twister.
+> According to our tests, at least 1GB of RAM is needed to compile Freech.
 
-Alternatively, you can run Twister on an isolated Linux container, using [Docker](https://www.docker.com/). First, [install Docker on your system](https://docs.docker.com/installation/#installation). Then run:
+Alternatively, you can run Freech on an isolated Linux container, using [Docker](https://www.docker.com/). First, [install Docker on your system](https://docs.docker.com/installation/#installation). Then run:
 
     # Leave out the "sudo -E" if you added yourself to the "docker" group
-    sudo -E ./twister-on-docker run --remote
+    sudo -E ./freech-on-docker run --remote
 
-The above command downloads and runs a [pre-built image](https://registry.hub.docker.com/u/miguelfreitas/twister) from the Docker index. You can also build and run your own container:
+The above command downloads and runs a [pre-built image](https://registry.hub.docker.com/u/martkist/freech) from the Docker index. You can also build and run your own container:
 
-    sudo -E ./twister-on-docker build
-    sudo -E ./twister-on-docker run
+    sudo -E ./freech-on-docker build
+    sudo -E ./freech-on-docker run
 
 ## License
 
@@ -47,7 +47,7 @@ information or see https://opensource.org/licenses/MIT.
 
 libtorrent is released under the BSD-license.
 
-twister specific code is released under the MIT license or BSD, you choose.
+freech specific code is released under the MIT license or BSD, you choose.
 (it shouldn't matter anyway, except for the "non-endorsement clause").
 
 ## Development process
@@ -61,11 +61,11 @@ bastardizing their codebases).
 ## Testing
 
 Some security checks are disabled (temporarily) allowing multiple clients per IP.
-Therefore it is possible to run multiple twisterd instances at the same machine:
+Therefore it is possible to run multiple freechd instances at the same machine:
 
-    $ twisterd -datadir=/tmp/twister1 -port=30001 -daemon -rpcuser=user -rpcpassword=pwd -rpcallowip=127.0.0.1 -rpcport=40001
-    $ twisterd -datadir=/tmp/twister2 -port=30002 -daemon -rpcuser=user -rpcpassword=pwd -rpcallowip=127.0.0.1 -rpcport=40002
-    $ twisterd -rpcuser=user -rpcpassword=pwd -rpcallowip=127.0.0.1 -rpcport=40001 addnode <external-ip>:30002 onetry
+    $ freechd -datadir=/tmp/freech1 -port=30001 -daemon -rpcuser=user -rpcpassword=pwd -rpcallowip=127.0.0.1 -rpcport=40001
+    $ freechd -datadir=/tmp/freech2 -port=30002 -daemon -rpcuser=user -rpcpassword=pwd -rpcallowip=127.0.0.1 -rpcport=40002
+    $ freechd -rpcuser=user -rpcpassword=pwd -rpcallowip=127.0.0.1 -rpcport=40001 addnode <external-ip>:30002 onetry
 
 Note: some features (like block generation and dht put/get) do now work unless
 the network has at least two nodes, like these two instances in the example above.
@@ -73,12 +73,12 @@ the network has at least two nodes, like these two instances in the example abov
 ## Wire protocol
 
 Bitcoin and libtorrent protocol signatures have been changed on purpose to
-make twister network incompatible. This avoids the so called
+make freech network incompatible. This avoids the so called
 ["merge bug"](http://blog.notdot.net/2008/6/Nearly-all-DHT-implementations-vulnerable-to-merge-bug).
 
 - Bitcoin signature changed from "f9 be b4 d9" to "f0 da bb d2".
-- Bitcoin port changed from 8333 to 28333.
-- Torrent signature changed from "BitTorrent protocol" to "twister protocollll".
+- Bitcoin port changed from 8333 to 4033.
+- Torrent signature changed from "BitTorrent protocol" to "freech protocollll".
 - Torrent/DHT query changed from "y" to "z"
 - Torrent/DHT answer changed from "a" to "x"
 
@@ -86,11 +86,11 @@ make twister network incompatible. This avoids the so called
 
 In order to use JSON-RPC you must set user/password/port by either command
 line or configuration file. This is the same as in [bitcoin](https://en.bitcoin.it/wiki/Running_Bitcoin)
-except that twister config file is `/home/user/.twister/twister.conf`
+except that freech config file is `/home/user/.freech/freech.conf`
 
 To create a new (local) user key:
 
-    ./twisterd createwalletuser myname
+    ./freechd createwalletuser myname
 
 This command returns the secret which can be used to recreate the key in a
 different computer (in order to access the account). The user should be
@@ -101,26 +101,26 @@ The newly created user only exists in the local database (wallet), so
 before the user is able to fully use the system (post messages), his public
 key must be propagated to the network:
 
-    ./twisterd sendnewusertransaction myname
+    ./freechd sendnewusertransaction myname
 
 The above command may take a few seconds to run, depending on your CPU. This
 is normal.
 
 To create the first (1) public post:
 
-    ./twisterd newpostmsg myname 1 "hello world"
+    ./freechd newpostmsg myname 1 "hello world"
 
 To add some users to the following list:
 
-    ./twisterd follow myname '["myname","myfriend"]'
+    ./freechd follow myname '["myname","myfriend"]'
 
 To get the last 5 posts from the users we follow:
 
-    ./twisterd getposts 5 '[{"username":"myname"},{"username":"myfriend"}]'
+    ./freechd getposts 5 '[{"username":"myname"},{"username":"myfriend"}]'
 
 To send a new (private) direct message:
 
-    ./twisterd newdirectmsg myname 2 myfriend "secret message"
+    ./freechd newdirectmsg myname 2 myfriend "secret message"
 
 Notes for `newdirectmsg`:
 
@@ -131,7 +131,7 @@ sure they don't clash.
 
 To get the last 10 direct messages to/from remote user:
 
-    ./twisterd getdirectmsgs myname 10 '[{"username":"myfriend"}]'
+    ./freechd getdirectmsgs myname 10 '[{"username":"myfriend"}]'
 
 Notes for `getdirectmsgs`:
 
@@ -145,50 +145,42 @@ same sent messages.
 
 To setup your profile:
 
-    ./twisterd dhtput myname profile s '{"fullname":"My Name","bio":"just another user","location":"nowhere","url":"twister.net.co"}' myname 1
+    ./freechd dhtput myname profile s '{"fullname":"My Name","bio":"just another user","location":"nowhere","url":"freech.net.co"}' myname 1
 
 Note: increase the revision number (the last parameter) whenever you want to
 update something using dhtput.
 
 To obtain the profile of another user:
 
-    ./twisterd dhtget myfriend profile s
+    ./freechd dhtget myfriend profile s
 
 To obtain the full list of commands
 
-    ./twisterd help
+    ./freechd help
 
 
 ## Running the web interface
 
 First you'll need to grab the latest version of the web UI code and put it
-in your twister data dir:
+in your freech data dir:
 
-    cd ~/.twister/
-    git clone https://github.com/miguelfreitas/twister-html.git ./html
+    cd ~/.freech/
+    git clone https://github.com/martkist/freech-html.git ./html
 
 In OS X
 
-    cd ~/Library/Application\ Support/twister
-    git clone https://github.com/miguelfreitas/twister-html.git ./html
+    cd ~/Library/Application\ Support/freech
+    git clone https://github.com/martkist/freech-html.git ./html
 
-Next, run the twister daemon. The RPC username and password are currently
+Next, run the freech daemon. The RPC username and password are currently
 hard coded as "user" and "pwd" in the web client so you'll need to specify
 them:
 
-    ./twisterd -rpcuser=user -rpcpassword=pwd -rpcallowip=127.0.0.1
+    ./freechd -rpcuser=user -rpcpassword=pwd -rpcallowip=127.0.0.1
 
-Visit [http://user:pwd@localhost:28332](http://user:pwd@localhost:28332)
+Visit [http://user:pwd@localhost:4032](http://user:pwd@localhost:4032)
 in your web browser and you should see a page asking you to choose between the
 Desktop and Mobile interfaces.
-
-## Different themes
-
-If you prefer new modern look of twister with new untested things, you can try twister-calm theme.
-But be careful, it is in beta stage.
-
-    cd ~/.twister/
-    git clone https://github.com/iHedgehog/twister-calm.git ./html
 
 ## Contributing
 

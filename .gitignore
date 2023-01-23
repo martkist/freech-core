@@ -66,5 +66,5 @@ build
 
 # Targets
 libtool
-twister-control
-twisterd
+freech-control
+freechd

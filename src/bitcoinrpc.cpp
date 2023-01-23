@@ -12,10 +12,10 @@
 #include "bitcoinrpc.h"
 #include "db.h"
 
-#include "twister_utils.h"
+#include "freech_utils.h"
 
 #ifdef ENABLE_RSS
-#include "twister_rss.h"
+#include "freech_rss.h"
 #endif // ENABLE_RSS
 
 #include <boost/algorithm/string.hpp>
@@ -210,10 +210,10 @@ Value stop(const Array& params, bool fHelp)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "stop\n"
-            "Stop Twister server.");
+            "Stop Freech server.");
     // Shutdown will take long enough that the response should get back
     StartShutdown();
-    return "Twister server stopping";
+    return "Freech server stopping";
 }
 
 
@@ -272,7 +272,7 @@ static const CRPCCommand vRPCCommands[] =
     { "sendnewusertransaction", &sendnewusertransaction, false,     false,      false },
     { "verifychain",            &verifychain,            true,      false,      false },
     { "getlastsoftcheckpoint",  &getlastsoftcheckpoint,  true,      false,      false },
-    // twister dht network
+    // freech dht network
     { "dhtput",                 &dhtput,                 false,     true,       false },
     { "dhtputraw",              &dhtputraw,              false,     true,       true },
     { "dhtget",                 &dhtget,                 false,     true,       true },
@@ -800,7 +800,7 @@ void on_connection(WST *s, websocketpp::connection_hdl hdl)
 {
     wsconnections.push_back(hdl);
 
-    s->send(hdl, "{\"result\":\"twister WEB Socket...\"}", websocketpp::frame::opcode::text);
+    s->send(hdl, "{\"result\":\"freech WEB Socket...\"}", websocketpp::frame::opcode::text);
 }
 template <class WST>
 void on_close(WST *s, websocketpp::connection_hdl hdl)
@@ -921,7 +921,7 @@ void StartRPCThreads()
     {
         unsigned char rand_pwd[32];
         RAND_bytes(rand_pwd, 32);
-        string strWhatAmI = "To use twisterd";
+        string strWhatAmI = "To use freechd";
         if (mapArgs.count("-server"))
             strWhatAmI = strprintf(_("To use the %s option"), "\"-server\"");
         else if (mapArgs.count("-daemon"))
@@ -937,7 +937,7 @@ void StartRPCThreads()
               "The username and password MUST NOT be the same.\n"
               "If the file does not exist, create it with owner-readable-only file permissions.\n"
               "It is also recommended to set alertnotify so you are notified of problems;\n"
-              "for example: alertnotify=echo %%s | mail -s \"Twister Alert\" admin@foo.com\n"),
+              "for example: alertnotify=echo %%s | mail -s \"Freech Alert\" admin@foo.com\n"),
                 strWhatAmI.c_str(),
                 GetConfigFile().string().c_str(),
                 EncodeBase58(&rand_pwd[0],&rand_pwd[0]+32).c_str()),

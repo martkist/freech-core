@@ -11,7 +11,7 @@
 #include "init.h"
 #include "base58.h"
 #include "main.h"
-#include "twister.h"
+#include "freech.h"
 
 using namespace std;
 using namespace boost;
@@ -481,7 +481,7 @@ Value backupwallet(const Array& params, bool fHelp)
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "backupwallet <destination>\n"
-            "Safely copies twisterwallet.dat to destination, which can be a directory or a path with filename.");
+            "Safely copies freechwallet.dat to destination, which can be a directory or a path with filename.");
 
     string strDest = params[0].get_str();
     if (!BackupWallet(*pwalletMain, strDest))
@@ -620,7 +620,7 @@ Value encryptwallet(const Array& params, bool fHelp)
     // slack space in .dat files; that is bad if the old data is
     // unencrypted private keys. So:
     StartShutdown();
-    return "wallet encrypted; Twister server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup.";
+    return "wallet encrypted; Freech server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup.";
 }
 
 class DescribeAddressVisitor : public boost::static_visitor<Object>

@@ -1,4 +1,4 @@
-#include "twister_rss.h"
+#include "freech_rss.h"
 #include "init.h"
 #include "bitcoinrpc.h"
 #include "json/json_spirit.h"
@@ -183,8 +183,8 @@ int generateRSS(string uri, string *output)
     ret << "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n"
         << "<rss version=\"2.0\">\n"
         << "<channel>\n"
-        << "  <title>Twister Postboard - " << account << "</title>\n"
-        << "  <description>New posts from Twister</description>\n";
+        << "  <title>Freech Postboard - " << account << "</title>\n"
+        << "  <description>New posts from Freech</description>\n";
     
     int outputSize = (outputVector.size()>max)?max:outputVector.size();
     

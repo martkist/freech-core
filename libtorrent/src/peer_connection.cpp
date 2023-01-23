@@ -59,7 +59,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "libtorrent/bt_peer_connection.hpp"
 #include "libtorrent/error.hpp"
 
-#include "../../src/twister.h"
+#include "../../src/freech.h"
 
 #ifdef TORRENT_DEBUG
 #include <set>

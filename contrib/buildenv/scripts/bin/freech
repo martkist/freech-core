@@ -4,9 +4,9 @@ RPCUSER='user'
 RPCPASSWORD='pwd'
 RPCALLOWIP='127.0.0.1'
 
-BIN=$TWISTER_CORE_PATH/twisterd
+BIN=$FREECH_CORE_PATH/freechd
 
-CONFFILE="$TWISTER_HOME/twister.conf"
+CONFFILE="$FREECH_HOME/freech.conf"
 
 OPTS="-daemon -debug"
 if [ ! -f "$CONFFILE" ]; then

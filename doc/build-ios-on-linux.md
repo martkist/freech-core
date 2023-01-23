@@ -1,6 +1,6 @@
 IOS (iPhoneOS) Build Instructions and Notes
 ===========================================
-This guide will show you how to build twisterd for IOS on a linux machine.
+This guide will show you how to build freechd for IOS on a linux machine.
 
 Notes
 -----
@@ -42,12 +42,12 @@ You should check variables set in `runme-ios-onlinux.sh` script.
     export CC="clang"
     export CXX="clang++"
     export PJC=2
-#### Building dependencies and `twisterd`
+#### Building dependencies and `freechd`
 
 1. Clone the github tree to get the source code and go into the directory.
 
-        git clone https://github.com/miguelfreitas/twister-core.git
-        cd twister-core/src
+        git clone https://github.com/martkist/freech-core.git
+        cd freech-core/src
 
 2. Building
 
@@ -59,21 +59,21 @@ You should check variables set in `runme-ios-onlinux.sh` script.
 
         make clean
 
-If all went well, you should now have a twisterd executable in the twister-core directory.
+If all went well, you should now have a freechd executable in the freech-core directory.
 See the Running instructions below.
 
 Running
 -------
 
-If you have been set IPHONE_IP before running script, it's now available at `/usr/bin/twisterd` on your device.
+If you have been set IPHONE_IP before running script, it's now available at `/usr/bin/freechd` on your device.
 We have to first create the RPC configuration file, though.
 
-Run `/usr/bin/twisterd` from SSH or on [Mobile Terminal](http://cydia.saurik.com/package/mobileterminal/) to get
+Run `/usr/bin/freechd` from SSH or on [Mobile Terminal](http://cydia.saurik.com/package/mobileterminal/) to get
 the filename where it should be put, or just try these commands:
 
-    mkdir -p "/User/.twister"
-    echo -e "rpcuser=user\nrpcpassword=pwd\nrpcallowip=127.0.0.1" > "/User/.twister/twister.conf"
-    chmod 600 "/User/.twister/twister.conf"
+    mkdir -p "/User/.freech"
+    echo -e "rpcuser=user\nrpcpassword=pwd\nrpcallowip=127.0.0.1" > "/User/.freech/freech.conf"
+    chmod 600 "/User/.freech/freech.conf"
 
 When next you run it, it will start downloading the blockchain, but it won't
 output anything while it's doing this. This process may take several hours. If you see a lonely
@@ -81,14 +81,14 @@ output anything while it's doing this. This process may take several hours. If y
 
 Other commands:
 
-    tail -f ~/.twister/debug.log
-    ./twisterd --help  # for a list of command-line options.
-    ./twisterd -daemon # to start it as a daemon.
-    ./twisterd help    # When the daemon is running, to get a list of RPC commands
+    tail -f ~/.freech/debug.log
+    ./freechd --help  # for a list of command-line options.
+    ./freechd -daemon # to start it as a daemon.
+    ./freechd help    # When the daemon is running, to get a list of RPC commands
 
-In order to get the HTML interface, you'll have to download it and link it in .twister:
+In order to get the HTML interface, you'll have to download it and link it in .freech:
 
-     git clone https://github.com/miguelfreitas/twister-html.git /User/Library/Application\ Support/twister/html
+     git clone https://github.com/martkist/freech-html.git /User/Library/Application\ Support/freech/html
 
 Once you do that, it will be available at http://localhost:28332/home.html
 

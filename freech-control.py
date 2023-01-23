@@ -1,9 +1,9 @@
 #!/usr/bin/env python2
 #
-# very simple wrapper for starting twisterd and launching the web browser
+# very simple wrapper for starting freechd and launching the web browser
 #
-# generates a default rpcpassword, twister.conf file etc.
-# may also setup automatic twisterd script on desktop login.
+# generates a default rpcpassword, freech.conf file etc.
+# may also setup automatic freechd script on desktop login.
 
 try:
     from Tkinter import *
@@ -23,8 +23,8 @@ import time
 import webbrowser
 import argparse
 
-configFilename = os.path.expanduser('~/.twister/twister.conf')
-startupScript = os.path.expanduser('~/.config/autostart/twisterd-startup.desktop')
+configFilename = os.path.expanduser('~/.freech/freech.conf')
+startupScript = os.path.expanduser('~/.config/autostart/freechd-startup.desktop')
 
 def passwordGenerator(size=10, chars=string.ascii_lowercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
@@ -76,23 +76,23 @@ def getBrowser():
     return webbrowser
 
 def daemon():
-    twisterdArgs = ["-daemon"]
-    systemHtmlDir = '/usr/share/twister/html'
+    freechdArgs = ["-daemon"]
+    systemHtmlDir = '/usr/share/freech/html'
     if os.path.exists(systemHtmlDir):
-        twisterdArgs += ['-htmldir='+systemHtmlDir]
+        freechdArgs += ['-htmldir='+systemHtmlDir]
     try:
-        call(["twisterd"] + twisterdArgs)
+        call(["freechd"] + freechdArgs)
     except:
         try:
-            twisterd = os.path.dirname(os.path.realpath(sys.argv[0])) + "/twisterd"
-            call([twisterd] + twisterdArgs)
+            freechd = os.path.dirname(os.path.realpath(sys.argv[0])) + "/freechd"
+            call([freechd] + freechdArgs)
         except:
-            print "running 'twisterd' failed. check if installed and PATH is correctly configured"
+            print "running 'freechd' failed. check if installed and PATH is correctly configured"
 
 def launch():
     justLaunched = False
-    if not get_pid('twisterd'):
-        print "launching twisterd..."
+    if not get_pid('freechd'):
+        print "launching freechd..."
         daemon()
         justLaunched = True
     
@@ -103,7 +103,7 @@ def launch():
             s.connect(('127.0.0.1', int(configOptions['rpcport'])))
             daemonUp = True
         except:
-            print "waiting for twisterd initialization..."
+            print "waiting for freechd initialization..."
             time.sleep(1)
 
     if justLaunched:
@@ -119,8 +119,8 @@ def addStartup():
         "[Desktop Entry]\n" \
         "Type=Application\n" \
         "Version=1.0\n" \
-        "Name=twisterd-startup\n" \
-        "Comment=start twisterd on login\n" \
+        "Name=freechd-startup\n" \
+        "Comment=start freechd on login\n" \
         "Terminal=false\n"
     desktopFile += "Exec=" + os.path.realpath(sys.argv[0]) + " --daemon\n"
     autostartDir = os.path.dirname(startupScript)
@@ -144,7 +144,7 @@ def guiLaunch():
 
 def guiAddStartup():
     addStartup()
-    showinfo('Ok', 'Startup script added!\ntwisterd will start automatically\non next login.')
+    showinfo('Ok', 'Startup script added!\nfreechd will start automatically\non next login.')
 
 def guiRemoveStartup():
     removeStartup()
@@ -156,9 +156,9 @@ def createGui():
     except:
         print 'Module Tkinter not found. Try installing python-tk to use GUI.'
         exit(-1)
-    root.title('twister control')
+    root.title('freech control')
     root.minsize(width=200,height=100)
-    Button(text='Launch twister', command=guiLaunch).pack(fill=X)
+    Button(text='Launch freech', command=guiLaunch).pack(fill=X)
     Button(text='Add startup script', command=guiAddStartup).pack(fill=X)
     Button(text='Remove startup script', command=guiRemoveStartup).pack(fill=X)
     Button(text='Quit', command=exit).pack(fill=X)
@@ -166,11 +166,11 @@ def createGui():
     mainloop()
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--launch", help="launch twister daemon and browser", action="store_true")
-parser.add_argument("--daemon", help="launch twister daemon only", action="store_true")
+parser.add_argument("--launch", help="launch freech daemon and browser", action="store_true")
+parser.add_argument("--daemon", help="launch freech daemon only", action="store_true")
 parser.add_argument("--addstartup", help="add startup script", action="store_true")
 parser.add_argument("--removestartup", help="add startup script", action="store_true")
-parser.add_argument("--gui", help="open twister control gui", action="store_true")
+parser.add_argument("--gui", help="open freech control gui", action="store_true")
 args = parser.parse_args()
 
 if args.launch or args.daemon:

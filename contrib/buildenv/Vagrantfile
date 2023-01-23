@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
   end
 
 
-  config.vm.synced_folder "../../", "/home/vagrant/twister-core"
+  config.vm.synced_folder "../../", "/home/vagrant/freech-core"
 
   config.vm.network :public_network
   config.vm.network :forwarded_port, guest: 28332, host: 28332, host_ip: '127.0.0.1'

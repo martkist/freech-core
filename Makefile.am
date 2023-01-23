@@ -1,7 +1,7 @@
 ACLOCAL_AMFLAGS = -I m4
 
 EXTRA_DIST = \
-  COPYING twister-control.py
+  COPYING freech-control.py
   
 dist_doc_DATA = README.md
 
@@ -16,8 +16,8 @@ $(LIBLEVELDB) $(LIBMEMENV):
 	  CC="$(CC)" PLATFORM=$(TARGET_OS) AR="$(AR)" $(LEVELDB_TARGET_FLAGS) \
           OPT="$(CXXFLAGS) $(CPPFLAGS)"
 
-bin_PROGRAMS = twisterd
-bin_SCRIPTS = twister-control
+bin_PROGRAMS = freechd
+bin_SCRIPTS = freech-control
 
 KADEMLIA_SOURCES = \
   libtorrent/src/kademlia/dht_tracker.cpp      \
@@ -132,10 +132,10 @@ SSE2_SOURCES = src/scrypt-sse2.cpp
 endif
 
 if ENABLE_RSS
-RSS_SOURCES = src/twister_rss.cpp
+RSS_SOURCES = src/freech_rss.cpp
 endif
 
-BITCOIN_TWISTER_SOURCES = \
+BITCOIN_FREECH_SOURCES = \
     src/alert.cpp \
     src/version.cpp \
     src/checkpoints.cpp \
@@ -172,18 +172,18 @@ BITCOIN_TWISTER_SOURCES = \
     src/txdb.cpp \
     src/chainparams.cpp \
     src/dhtproxy.cpp \
-    src/twister.cpp \
-    src/twister_utils.cpp \
+    src/freech.cpp \
+    src/freech_utils.cpp \
     $(SSE2_SOURCES) \
     $(RSS_SOURCES)
 
-twisterd_SOURCES = $(LIBTORRENT_SOURCES) $(BITCOIN_TWISTER_SOURCES)
+freechd_SOURCES = $(LIBTORRENT_SOURCES) $(BITCOIN_FREECH_SOURCES)
 
-twisterd_LDFLAGS = @OPENSSL_LDFLAGS@ @DB_CXX_LDFLAGS@
+freechd_LDFLAGS = @OPENSSL_LDFLAGS@ @DB_CXX_LDFLAGS@
 
-twisterd_DEPENDENCIES = $(LIBLEVELDB) $(LIBMEMENV)
+freechd_DEPENDENCIES = $(LIBLEVELDB) $(LIBMEMENV)
 
-twisterd_LDADD = $(LIBLEVELDB) $(LIBMEMENV) \
+freechd_LDADD = $(LIBLEVELDB) $(LIBMEMENV) \
     @BOOST_SYSTEM_LIB@ @BOOST_FILESYSTEM_LIB@ @BOOST_PROGRAM_OPTIONS_LIB@ @BOOST_THREAD_LIB@ @BOOST_CHRONO_LIB@ @BOOST_LOCALE_LIB@ \
     @BOOST_REGEX_LIB@ @BOOST_LDFLAGS@ @DB_CXX_LIBS@ @OPENSSL_LIBS@
 
@@ -196,9 +196,9 @@ AM_CPPFLAGS = -ftemplate-depth-100 -DBOOST_SPIRIT_THREADSAFE -D_FILE_OFFSET_BITS
 
 AM_LDFLAGS = @OPENSSL_LDFLAGS@
 
-twister-control: twister-control.py Makefile
-	cat < $(srcdir)/twister-control.py > twister-control
-	chmod +x twister-control
+freech-control: freech-control.py Makefile
+	cat < $(srcdir)/freech-control.py > freech-control
+	chmod +x freech-control
 
 CLEANFILES = $(LIBLEVELDB) $(LIBMEMENV) $(bin_SCRIPTS) $(bin_PROGRAMS)
 
@@ -213,7 +213,7 @@ pixmapsdir = $(datadir)/pixmaps
 pixmaps_DATA = share/pixmaps/*
 
 desktopdir = $(datadir)/applications
-desktop_DATA = share/applications/twister.desktop share/applications/twister-control.desktop
+desktop_DATA = share/applications/freech.desktop share/applications/freech-control.desktop
 
 UPDATE_DESKTOP = update-desktop-database $(datadir)/applications || :
 

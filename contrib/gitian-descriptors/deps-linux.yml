@@ -1,5 +1,5 @@
 ---
-name: "twister"
+name: "freech"
 suites:
 - "precise"
 architectures:
@@ -59,4 +59,4 @@ script: |
   done
   #
   cd $STAGING
-  find include lib bin host | sort | zip -X@ $OUTDIR/twister-deps-linux${GBUILD_BITS}-gitian-r6.zip
+  find include lib bin host | sort | zip -X@ $OUTDIR/freech-deps-linux${GBUILD_BITS}-gitian-r6.zip

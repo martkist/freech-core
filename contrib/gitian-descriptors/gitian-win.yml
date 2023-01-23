@@ -1,5 +1,5 @@
 ---
-name: "twister"
+name: "freech"
 suites:
 - "precise"
 architectures:
@@ -20,13 +20,13 @@ packages:
 
 reference_datetime: "2013-06-01 00:00:00"
 remotes:
-- "url": "https://github.com/miguelfreitas/twister-core.git"
-  "dir": "twister-core"
+- "url": "https://github.com/martkist/freech-core.git"
+  "dir": "freech-core"
 files:
 - "boost-win32-1.55.0-gitian-r6.zip"
 - "boost-win64-1.55.0-gitian-r6.zip"
-- "twister-deps-win32-gitian-r13.zip"
-- "twister-deps-win64-gitian-r13.zip"
+- "freech-deps-win32-gitian-r13.zip"
+- "freech-deps-win64-gitian-r13.zip"
 script: |
   # Defines
   export TZ=UTC
@@ -48,11 +48,11 @@ script: |
     #
     cd $STAGING
     unzip $INDIR/boost-win${BITS}-1.55.0-gitian-r6.zip
-    unzip $INDIR/twister-deps-win${BITS}-gitian-r13.zip
+    unzip $INDIR/freech-deps-win${BITS}-gitian-r13.zip
     # Build platform-dependent executables from source archive
     cd $BUILDDIR
     rm -rf distsrc
-    cp -a $HOME/build/twister-core distsrc
+    cp -a $HOME/build/freech-core distsrc
     mkdir -p distsrc
     cd distsrc
     ./autotool.sh
@@ -60,8 +60,8 @@ script: |
     #export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
     #export FAKETIME=$REFERENCE_DATETIME
     make $MAKEOPTS
-    strip twisterd.exe
-    cp -f twisterd.exe $BINDIR/
+    strip freechd.exe
+    cp -f freechd.exe $BINDIR/
     unset LD_PRELOAD
     unset FAKETIME
   done # for BITS in
@@ -71,8 +71,8 @@ script: |
   rm -rf $TEMPDIR
   mkdir -p $TEMPDIR
   cd $TEMPDIR
-  #tar -xvf $HOME/build/twister/$DISTNAME | sort | tar --no-recursion -cT /dev/stdin --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 mtime="$REFERENCE_DATETIME" | gzip -n > $OUTDIR/src/$DISTNAME
+  #tar -xvf $HOME/build/freech/$DISTNAME | sort | tar --no-recursion -cT /dev/stdin --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 mtime="$REFERENCE_DATETIME" | gzip -n > $OUTDIR/src/$DISTNAME
   cd $OUTDIR
-  find $OUTDIR | sort | zip -X@ /home/ubuntu/out/twister-win-gitian.zip
+  find $OUTDIR | sort | zip -X@ /home/ubuntu/out/freech-win-gitian.zip
 
 

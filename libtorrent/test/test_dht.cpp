@@ -44,7 +44,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "test.hpp"
 #include "setup_transfer.hpp"
 
-#include "../../src/twister.h"
+#include "../../src/freech.h"
 
 using namespace libtorrent;
 using namespace libtorrent::dht;

@@ -207,7 +207,7 @@ int main(int argc, char *argv[])
         //help.showOrPrint();
 
         QString coreOptions = QString::fromStdString(HelpMessage());
-        QString strUsage = QString("twister") + "\n" + coreOptions + "\n";
+        QString strUsage = QString("freech") + "\n" + coreOptions + "\n";
         fprintf(stdout, "%s", strUsage.toStdString().c_str());
 
         return 1;

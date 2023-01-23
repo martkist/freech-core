@@ -14,7 +14,7 @@
 #include "uint256.h"
 #include "script.h"
 #include "init.h"
-#include "twister.h"
+#include "freech.h"
 
 //#define dbgprintf OutputDebugStringF
 #define dbgprintf(...) // no debug printf

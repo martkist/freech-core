@@ -1,6 +1,6 @@
 OS X Build Instructions and Notes
 ====================================
-This guide will show you how to build twisterd for OS X.
+This guide will show you how to build freechd for OS X.
 
 Notes
 -----
@@ -43,15 +43,15 @@ Instructions: Homebrew
 
     brew install boost miniupnpc openssl berkeley-db4 autoconf automake libtool
 
-### Building `twisterd`
+### Building `freechd`
 
 1. Clone the github tree to get the source code and go into the directory.
 
 
-        git clone https://github.com/miguelfreitas/twister-core.git
-        cd twister-core
+        git clone https://github.com/martkist/freech-core.git
+        cd freech-core
 
-2. Build twister using autotool
+2. Build freech using autotool
 
         ./autotool.sh
         ./configure --enable-logging --with-openssl=/usr/local/opt/openssl --with-libdb=/usr/local/opt/berkeley-db4
@@ -63,7 +63,7 @@ Instructions: Homebrew
 
         make clean
 
-If all went well, you should now have a twisterd executable in the twister-core directory.
+If all went well, you should now have a freechd executable in the freech-core directory.
 See the Running instructions below.
 
 Instructions: MacPorts (UNTESTED!!)
@@ -88,15 +88,15 @@ If things go south, before trying again, make sure you clean it up:
 Running
 -------
 
-It's now available at `./twisterd`, provided that you are still in the `twister-core`
+It's now available at `./freechd`, provided that you are still in the `freech-core`
 directory. We have to first create the RPC configuration file, though.
 
-Run `./twisterd` to get the filename where it should be put, or just try these
+Run `./freechd` to get the filename where it should be put, or just try these
 commands:
 
-    mkdir -p "/Users/${USER}/.twister"
-    echo -e "rpcuser=user\nrpcpassword=pwd\nrpcallowip=127.0.0.1" > "/Users/${USER}/.twister/twister.conf"
-    chmod 600 "/Users/${USER}/.twister/twister.conf"
+    mkdir -p "/Users/${USER}/.freech"
+    echo -e "rpcuser=user\nrpcpassword=pwd\nrpcallowip=127.0.0.1" > "/Users/${USER}/.freech/freech.conf"
+    chmod 600 "/Users/${USER}/.freech/freech.conf"
 
 When next you run it, it will start downloading the blockchain, but it won't
 output anything while it's doing this. This process may take several hours. If you see a lonely
@@ -104,14 +104,14 @@ output anything while it's doing this. This process may take several hours. If y
 
 Other commands:
 
-    tail -f ~/.twister/debug.log
-    ./twisterd --help  # for a list of command-line options.
-    ./twisterd -daemon # to start it as a daemon.
-    ./twisterd help    # When the daemon is running, to get a list of RPC commands
+    tail -f ~/.freech/debug.log
+    ./freechd --help  # for a list of command-line options.
+    ./freechd -daemon # to start it as a daemon.
+    ./freechd help    # When the daemon is running, to get a list of RPC commands
 
-In order to get the HTML interface, you'll have to download it and link it in .twister:
+In order to get the HTML interface, you'll have to download it and link it in .freech:
 
-     git clone https://github.com/miguelfreitas/twister-html.git /Users/${USER}/Library/Application\ Support/twister/html
+     git clone https://github.com/martkist/freech-html.git /Users/${USER}/Library/Application\ Support/freech/html
 
 Once you do that, it will be available at http://localhost:28332/home.html
 

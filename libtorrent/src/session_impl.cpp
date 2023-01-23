@@ -85,7 +85,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "libtorrent/random.hpp"
 #include "libtorrent/magnet_uri.hpp"
 
-#include "twister.h" // for LIBTORRENT_PORT_OFFSET
+#include "freech.h" // for LIBTORRENT_PORT_OFFSET
 
 #if defined TORRENT_STATS && defined __MACH__
 #include <mach/task.h>
@@ -770,8 +770,8 @@ namespace aux {
 
 		m_tcp_mapping[0] = -1;
 		m_tcp_mapping[1] = -1;
-		m_twister_tcp_mapping[0] = -1;
-		m_twister_tcp_mapping[1] = -1;
+		m_freech_tcp_mapping[0] = -1;
+		m_freech_tcp_mapping[1] = -1;
 		m_udp_mapping[0] = -1;
 		m_udp_mapping[1] = -1;
 #ifdef TORRENT_USE_OPENSSL
@@ -2469,8 +2469,8 @@ retry:
 		{
 			if (m_tcp_mapping[0] != -1) m_natpmp->delete_mapping(m_tcp_mapping[0]);
 			m_tcp_mapping[0] = m_natpmp->add_mapping(natpmp::tcp, tcp_port, tcp_port);
-			if (m_twister_tcp_mapping[0] != -1) m_natpmp->delete_mapping(m_twister_tcp_mapping[0]);
-			m_twister_tcp_mapping[0] = m_natpmp->add_mapping(natpmp::tcp, 
+			if (m_freech_tcp_mapping[0] != -1) m_natpmp->delete_mapping(m_freech_tcp_mapping[0]);
+			m_freech_tcp_mapping[0] = m_natpmp->add_mapping(natpmp::tcp, 
 			                           tcp_port-LIBTORRENT_PORT_OFFSET, tcp_port-LIBTORRENT_PORT_OFFSET);
 #ifdef TORRENT_USE_OPENSSL
 			if (m_ssl_mapping[0] != -1) m_natpmp->delete_mapping(m_ssl_mapping[0]);
@@ -2481,8 +2481,8 @@ retry:
 		{
 			if (m_tcp_mapping[1] != -1) m_upnp->delete_mapping(m_tcp_mapping[1]);
 			m_tcp_mapping[1] = m_upnp->add_mapping(upnp::tcp, tcp_port, tcp_port);
-			if (m_twister_tcp_mapping[1] != -1) m_upnp->delete_mapping(m_twister_tcp_mapping[1]);
-			m_twister_tcp_mapping[1] = m_upnp->add_mapping(upnp::tcp, 
+			if (m_freech_tcp_mapping[1] != -1) m_upnp->delete_mapping(m_freech_tcp_mapping[1]);
+			m_freech_tcp_mapping[1] = m_upnp->add_mapping(upnp::tcp, 
 			                           tcp_port-LIBTORRENT_PORT_OFFSET, tcp_port-LIBTORRENT_PORT_OFFSET);
 #ifdef TORRENT_USE_OPENSSL
 			if (m_ssl_mapping[1] != -1) m_upnp->delete_mapping(m_ssl_mapping[1]);
@@ -6286,7 +6286,7 @@ retry:
 			m_upnp->close();
 			m_udp_mapping[1] = -1;
 			m_tcp_mapping[1] = -1;
-			m_twister_tcp_mapping[1] = -1;
+			m_freech_tcp_mapping[1] = -1;
 #ifdef TORRENT_USE_OPENSSL
 			m_ssl_mapping[1] = -1;
 #endif

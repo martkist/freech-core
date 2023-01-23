@@ -437,7 +437,7 @@ namespace libtorrent
 		void add_dht_node(std::pair<std::string, int> const& node);
 		void add_dht_router(std::pair<std::string, int> const& node);
 
-		// [MF] twister
+		// [MF] freech
 		void dht_putDataSigned(std::string const &username, std::string const &resource, bool multi,
 		                       entry const &p, std::string const &sig_p, std::string const &sig_user, bool local);
 
