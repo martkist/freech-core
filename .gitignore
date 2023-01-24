@@ -68,3 +68,5 @@ build
 libtool
 freech-control
 freechd
+# Docker is OK
+!freechd/
