@@ -16,7 +16,7 @@
 
 unsigned int pnSeed[] =
 {
-    0x5bc500f8, 0x5bc500f8
+    0xf800c55b, 0xf800c55b
 };
 
 unsigned int pnSeedParm[] =
