@@ -21,7 +21,7 @@ unsigned int pnSeed[] =
 
 unsigned int pnSeedParm[] =
 {
-    0x10ED, 0x10EE
+    0x0fc1, 0x0fc2
 };
 
 class CMainParams : public CChainParams {

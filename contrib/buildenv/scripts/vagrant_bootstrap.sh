@@ -111,7 +111,7 @@ if [ $? -eq 0 ]; then
   echo '=================================================================='
   echo "
 Done. 
-Open http://127.0.0.1:28332/index.html and use the user/pwd credentials
+Open http://127.0.0.1:4032/index.html and use the user/pwd credentials
 Create your account !
   
 If you want to do some development or other stuff then...

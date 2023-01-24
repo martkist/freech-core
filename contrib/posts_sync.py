@@ -19,7 +19,7 @@ except ImportError as exc:
 from optparse import OptionParser
 parser = OptionParser("usage: %prog [options] <page_url> <username>")
 parser.add_option("-s", "--serverUrl",
-                  action="store", dest="serverUrl", default="http://user:pwd@127.0.0.1:28332",
+                  action="store", dest="serverUrl", default="http://user:pwd@127.0.0.1:4032",
                   help="connect to specified freechd server URL")
 parser.add_option("-p", "--proxyUrl",
                   action="store", dest="proxyUrl", default="",

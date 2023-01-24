@@ -20,7 +20,7 @@ except ImportError as exc:
     sys.stderr.write("Error: install python-bitcoinrpc (https://github.com/jgarzik/python-bitcoinrpc)\n")
     exit(-1)
 
-serverUrl = "http://user:pwd@127.0.0.1:28332"
+serverUrl = "http://user:pwd@127.0.0.1:4032"
 if len(sys.argv) > 1:
     serverUrl = sys.argv[1]
 

@@ -28,8 +28,8 @@ run)
     docker pull $IMAGE_NAME
   fi
   echo Running $IMAGE_NAME
-  docker run -d -p 28332:28332 -v $HOME/.freech:/root/.freech $IMAGE_NAME "$@"
-  echo "Freech should now be running at http://localhost:28332 (access with \"user\" / \"pwd\")"
+  docker run -d -p 4032:4032 -v $HOME/.freech:/root/.freech $IMAGE_NAME "$@"
+  echo "Freech should now be running at http://localhost:4032 (access with \"user\" / \"pwd\")"
   ;;
 
 stop)

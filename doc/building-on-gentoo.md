@@ -15,5 +15,5 @@
 ## Start
 
 1. freechd -rpcuser=user -rpcpassword=pwd
-1. Open http://127.0.0.1:28332/index.html and use the user/pwd credentials
+1. Open http://127.0.0.1:4032/index.html and use the user/pwd credentials
 1. Create your account !

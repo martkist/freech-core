@@ -33,7 +33,7 @@ configOptions = {
     'rpcuser' : 'user',
     'rpcpassword' : passwordGenerator(),
     'rpcallowip' : '127.0.0.1',
-    'rpcport' : '28332',
+    'rpcport' : '4032',
 }
 
 def loadConfig():

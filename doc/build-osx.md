@@ -113,7 +113,7 @@ In order to get the HTML interface, you'll have to download it and link it in .f
 
      git clone https://github.com/martkist/freech-html.git /Users/${USER}/Library/Application\ Support/freech/html
 
-Once you do that, it will be available at http://localhost:28332/home.html
+Once you do that, it will be available at http://localhost:4032/home.html
 
 Troubleshooting
 -------
