@@ -16,12 +16,12 @@
 
 unsigned int pnSeed[] =
 {
-    0xf800c55b, 0xf800c55b, 0xf800c55b
+    0xf800c55b, 0xa2fc87c3
 };
 
 unsigned int pnSeedParm[] =
 {
-    0x0fc1, 0x0fc2, 0x0fc3
+    0x0fc1, 0x0fc1
 };
 
 class CMainParams : public CChainParams {
