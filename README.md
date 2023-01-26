@@ -40,6 +40,26 @@ The above command downloads and runs a [pre-built image](https://registry.hub.do
     sudo -E ./freech-on-docker build
     sudo -E ./freech-on-docker run
 
+## Freech Server
+
+1. [Install Docker](https://docs.docker.com/engine/install/)
+
+2. Prepare a `freech.conf` in e.g. `/home/<yourusername>/freech`:
+```
+gen=1
+addnode=91.197.0.248:4033
+addnode=195.135.252.162:4033
+```
+
+This command tells Freech to contribute to the network by mining, and allows you to specify nodes for faster startup.
+
+3. Start your container and publish the default Freech ports (4033) and various DHT ports:
+```
+docker run -d --cpus=0.10 --restart always --publish 4033:4033 --publish 4433:4433 --publish 5033:5033 --publish 5033:5033/udp --mount type=bind,source=/home/user/freech,target=/root/.freech -it martkist/freechd:v0.9.35
+```
+
+This command limits your CPU miner to 10% usage, and ensures that your container will restart on failure/server restart.
+
 ## License
 
 Bitcoin is released under the terms of the MIT license. See `COPYING` for more
