@@ -40,6 +40,12 @@ The above command downloads and runs a [pre-built image](https://registry.hub.do
     sudo -E ./freech-on-docker build
     sudo -E ./freech-on-docker run
 
+## Release Builds
+
+Run `build.sh` in `docker/builds` to produce Unix and Windows release builds. This replaces the legacy `gitian` build process until we can migrate to `Guix`.
+
+`macOS` builds are currently still manual.
+
 ## Freech Server
 
 1. [Install Docker](https://docs.docker.com/engine/install/)
