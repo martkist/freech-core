@@ -11,10 +11,18 @@ FROM freech:win-base
 # dependencies
 ENV STAGING=$HOME/staging
 RUN mkdir -p $STAGING
-COPY --from=boost $INSTALLPREFIX $STAGING
-COPY --from=db48 $INSTALLPREFIX $STAGING
-COPY --from=openssl $INSTALLPREFIX $STAGING
-COPY --from=zlib $INSTALLPREFIX $STAGING
+
+COPY --from=boost $INSTALLPREFIX/lib $STAGING/lib
+COPY --from=boost $INSTALLPREFIX/include $STAGING/include
+
+COPY --from=db48 $INSTALLPREFIX/lib $STAGING/lib
+COPY --from=db48 $INSTALLPREFIX/include $STAGING/include
+
+COPY --from=openssl $INSTALLPREFIX/lib $STAGING/lib
+COPY --from=openssl $INSTALLPREFIX/include $STAGING/include
+
+COPY --from=zlib $INSTALLPREFIX/lib $STAGING/lib
+COPY --from=zlib $INSTALLPREFIX/include $STAGING/include
 
 # make deterministic libs
 RUN /bin/bash -c 'for LIB in $(find $STAGING -name \*.a); \
@@ -40,7 +48,7 @@ RUN export PATH=$STAGING/host/bin:$PATH
 RUN git submodule update --init
 RUN ./autotool.sh
 RUN ./configure --bindir=$OUTDIR --prefix=$STAGING --host=$HOST --with-boost=$STAGING --with-openssl=$STAGING CPPFLAGS="-I$STAGING/include ${OPTFLAGS}" LDFLAGS="-L$STAGING/lib ${OPTFLAGS}" CXXFLAGS="${OPTFLAGS}" --without-boost-locale
-RUN make $MAKEOPTS
+RUN make CPPFLAGS="-DBOOST_SYSTEM_ENABLE_DEPRECATED" LDFLAGS="-lstdc++" $MAKEOPTS
 RUN strip freechd.exe
 RUN cp -f freechd.exe $OUTDIR/
 RUN unset LD_PRELOAD
