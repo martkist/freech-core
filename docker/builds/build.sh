@@ -20,3 +20,8 @@ docker build $DOCKEROPTS -t freech:win-boost -f win-boost.Dockerfile .
 
 echo "Building freechd for Windows..."
 docker build $DOCKEROPTS -t freech:win-freechd -f win-freechd.Dockerfile .
+
+echo "Packaging..."
+container_id=$(docker create "freech:win-freechd")
+docker cp "$container_id:/root/outputs" .
+docker rm "$container_id"

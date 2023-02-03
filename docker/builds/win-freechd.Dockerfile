@@ -41,14 +41,14 @@ RUN git clone https://github.com/martkist/freech-core.git
 WORKDIR freech-core
 RUN git checkout ${TAG}
 
-RUN OPTFLAGS='-O2 -static -static-libgcc -static-libstdc++'
+RUN OPTFLAGS='-O2 '
 
 RUN export PATH=$STAGING/host/bin:$PATH
 
 RUN git submodule update --init
 RUN ./autotool.sh
 RUN ./configure --bindir=$OUTDIR --prefix=$STAGING --host=$HOST --with-boost=$STAGING --with-openssl=$STAGING CPPFLAGS="-I$STAGING/include ${OPTFLAGS}" LDFLAGS="-L$STAGING/lib ${OPTFLAGS}" CXXFLAGS="${OPTFLAGS}" --without-boost-locale
-RUN make CPPFLAGS="-DBOOST_SYSTEM_ENABLE_DEPRECATED" LDFLAGS="-lstdc++" $MAKEOPTS
+RUN make CPPFLAGS="-DBOOST_SYSTEM_ENABLE_DEPRECATED" LDFLAGS="-static -static-libgcc -static-libstdc++" $MAKEOPTS
 RUN strip freechd.exe
 RUN cp -f freechd.exe $OUTDIR/
 RUN unset LD_PRELOAD
