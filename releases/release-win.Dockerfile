@@ -33,7 +33,6 @@ RUN git submodule update --init
 RUN ./autotool.sh
 RUN ./configure --prefix=$DEPENDS --host=$HOST --with-libdb=$DEPENDS --with-boost=$DEPENDS --without-boost-locale --with-openssl=$DEPENDS CPPFLAGS="-O2" CXXFLAGS="-O2" LDFLAGS="-static"
 RUN make CPPFLAGS="-DBOOST_SYSTEM_ENABLE_DEPRECATED" LDFLAGS="-static -static-libgcc -static-libstdc++" $MAKEOPTS
-RUN strip freechd.exe
 
 RUN mkdir /outputs
 RUN cp freechd.exe /outputs/

@@ -10,7 +10,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC 
 
 # general
-RUN apt-get install -y git
+RUN apt-get install -y git make automake cmake curl g++-multilib libtool binutils-gold bsdmainutils pkg-config python3 patch
 
 # macOS
 RUN apt-get install -y curl librsvg2-bin libtiff-tools bsdmainutils cmake imagemagick libcap-dev libz-dev libbz2-dev python3-setuptools libtinfo5 xorriso
@@ -36,9 +36,8 @@ RUN git checkout ${TAG}
 RUN git submodule update --init
 
 RUN ./autotool.sh
-RUN ./configure --prefix=$DEPENDS --host=$HOST --with-libdb=$DEPENDS --with-boost=$DEPENDS --without-boost-locale --with-openssl=$DEPENDS CPPFLAGS="-O2" CXXFLAGS="-O2" LDFLAGS="-static"
-RUN make CPPFLAGS="-DBOOST_SYSTEM_ENABLE_DEPRECATED" LDFLAGS="-static -static-libgcc -static-libstdc++" $MAKEOPTS
-RUN strip freechd.exe
+RUN CONFIG_SITE=${DEPENDS}/share/config.site ./configure -without-boost-locale --prefix=$DEPENDS --disable-ccache --disable-maintainer-mode --disable-dependency-tracking CPPFLAGS="-Wno-narrowing -Wno-reserved-user-defined-literal" CXXFLAGS="-Wno-narrowing -Wno-reserved-user-defined-literal"
+RUN make CPPFLAGS="-DBOOST_SYSTEM_ENABLE_DEPRECATED" LDFLAGS="-static" $MAKEOPTS
 
 RUN mkdir /outputs
-RUN cp freechd.exe /outputs/
+RUN cp freechd /outputs/
