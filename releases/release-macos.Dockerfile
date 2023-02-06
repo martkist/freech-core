@@ -22,9 +22,8 @@ RUN curl -O https://bitcoincore.org/depends-sources/sdks/Xcode-12.1-12A7403-extr
 RUN tar -zxf Xcode-12.1-12A7403-extracted-SDK-with-libcxx-headers.tar.gz
 
 WORKDIR /depends
-RUN make HOST=x86_64-apple-darwin16 $MAKEOPTS 
-
 ENV HOST=x86_64-apple-darwin16
+RUN make HOST=$HOST $MAKEOPTS 
 ENV DEPENDS=/depends/$HOST
 
 WORKDIR /
@@ -39,5 +38,6 @@ RUN ./autotool.sh
 RUN CONFIG_SITE=${DEPENDS}/share/config.site ./configure -without-boost-locale --prefix=$DEPENDS --disable-ccache --disable-maintainer-mode --disable-dependency-tracking CPPFLAGS="-Wno-narrowing -Wno-reserved-user-defined-literal" CXXFLAGS="-Wno-narrowing -Wno-reserved-user-defined-literal"
 RUN make CPPFLAGS="-DBOOST_SYSTEM_ENABLE_DEPRECATED" LDFLAGS="-static" $MAKEOPTS
 
+RUN tar -czvf freech-core-$TAG-$HOST.tar.gz freechd
 RUN mkdir /outputs
-RUN cp freechd /outputs/
+RUN cp freech-core-$TAG-$HOST.tar.gz /outputs/

@@ -1,27 +1,22 @@
-DOCKEROPTS=--pull=false --build-arg makeopts=-j3
+MAKEOPTS=${MAKEOPTS:--j3}
+DOCKEROPTS="--build-arg TAG=$FREECH_TAG --build-arg MAKEOPTS=$MAKEOPTS"
 
-echo "Building base image..."
-docker build -t freech:base -f base.Dockerfile .
-
-echo "Building Windows build environment..."
-docker build $DOCKEROPTS -t freech:win-base -f win-base.Dockerfile . 
-
-echo "Building openssl for Windows..."
-docker build $DOCKEROPTS -t freech:win-openssl -f win-openssl.Dockerfile .
-
-echo "Building zlib for Windows..."
-docker build $DOCKEROPTS -t freech:win-zlib -f win-zlib.Dockerfile .
-
-echo "Building db48 for Windows..."
-docker build $DOCKEROPTS -t freech:win-db48 -f win-db48.Dockerfile .
-
-echo "Building boost for Windows..."
-docker build $DOCKEROPTS -t freech:win-boost -f win-boost.Dockerfile .
-
-echo "Building freechd for Windows..."
-docker build $DOCKEROPTS -t freech:win-freechd -f win-freechd.Dockerfile .
-
-echo "Packaging..."
-container_id=$(docker create "freech:win-freechd")
-docker cp "$container_id:/root/outputs" .
+echo "Building Linux release..."
+docker build -t freech:release-linux-$FREECH_TAG -f release-linux.Dockerfile . $DOCKEROPTS
+container_id=$(docker create "freech:release-linux-$FREECH_TAG")
+docker cp "$container_id:/outputs/" "outputs/"
 docker rm "$container_id"
+
+# echo "Building Windows release..."
+# docker build -t freech:release-windows-$FREECH_TAG -f release-windows.Dockerfile . $DOCKEROPTS
+# container_id=$(docker create "freech:release-windows-$FREECH_TAG")
+# docker cp "$container_id:/outputs/" "outputs/"
+# docker rm "$container_id"
+
+# echo "Building macOS release..."
+# docker build -t freech:release-macos-$FREECH_TAG -f release-macos.Dockerfile . $DOCKEROPTS
+# container_id=$(docker create "freech:release-macos-$FREECH_TAG")
+# docker cp "$container_id:/outputs/" "outputs/"
+# docker rm "$container_id"
+
+echo "Done!"

@@ -42,9 +42,7 @@ The above command downloads and runs a [pre-built image](https://registry.hub.do
 
 ## Release Builds
 
-Run `build.sh` in `docker/builds` to produce Unix and Windows release builds. This replaces the legacy `gitian` build process until we can migrate to `Guix`.
-
-`macOS` builds are currently still manual.
+Run `FREECH_TAG=v0.9.35 ./build.sh` in `releases` to produce macOS, Unix and Windows release builds. This replaces the legacy `gitian` build process until we can migrate to `Guix`. Release builds use the Bitcoin `depends` infrastructure to build dependencies, and can be updated with the Bitcoin equivalents as needed.
 
 ## Freech Server
 
