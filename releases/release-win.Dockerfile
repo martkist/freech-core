@@ -1,6 +1,6 @@
+FROM ubuntu:20.04
 ARG TAG
 ARG MAKEOPTS
-FROM ubuntu:20.04
 LABEL maintainer="Martkist Developers"
 
 RUN apt-get update
@@ -15,7 +15,7 @@ ADD depends /depends
 
 WORKDIR /depends
 ENV HOST=x86_64-w64-mingw32
-RUN make HOST=$HOST $MAKEOPTS 
+RUN make HOST=$HOST ${MAKEOPTS}
 ENV DEPENDS=/depends/$HOST
 
 WORKDIR /
@@ -28,8 +28,10 @@ RUN git submodule update --init
 
 RUN ./autotool.sh
 RUN ./configure --prefix=$DEPENDS --host=$HOST --with-libdb=$DEPENDS --with-boost=$DEPENDS --without-boost-locale --with-openssl=$DEPENDS CPPFLAGS="-O2" CXXFLAGS="-O2" LDFLAGS="-static"
-RUN make CPPFLAGS="-DBOOST_SYSTEM_ENABLE_DEPRECATED" LDFLAGS="-static -static-libgcc -static-libstdc++" $MAKEOPTS
+RUN make CPPFLAGS="-DBOOST_SYSTEM_ENABLE_DEPRECATED" LDFLAGS="-static -static-libgcc -static-libstdc++" ${MAKEOPTS}
 
-RUN tar -czvf freech-core-$TAG-$HOST.tar.gz freechd.exe
+ENV PACKAGE=freech-core-${TAG}-$HOST.tar.gz
+RUN strip freechd.exe
+RUN tar -czvf $PACKAGE freechd.exe
 RUN mkdir /outputs
-RUN cp freech-core-$TAG-$HOST.tar.gz /outputs/
+RUN cp $PACKAGE /outputs/

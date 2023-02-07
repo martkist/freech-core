@@ -1,5 +1,5 @@
-ARG TAG
 FROM freechd
+ARG TAG
 LABEL maintainer="Martkist Developers"
 LABEL tag=${TAG}
 

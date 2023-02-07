@@ -21,14 +21,9 @@ not interoperate with existing networks (on purpose).
 
 ## Compiling
 
-Please follow the instructions for your platform:
+Build instructions are in flux as we improve the state of the forked twister-core, which had incomplete build instructions. See `docs/build-XXX.md`.
 
-- [UNIX](https://github.com/martkist/freech-core/blob/master/doc/build-unix.md)
-- [Debian/Ubuntu](https://github.com/martkist/freech-core/blob/master/doc/building-on-ubuntu-debian.md)
-- [OS X](https://github.com/martkist/freech-core/blob/master/doc/build-osx.md)
-- [Windows (untested)](https://github.com/martkist/freech-core/wiki/Compiling-for-Windows)
-
-> According to our tests, at least 1GB of RAM is needed to compile Freech.
+You can also make reference to the Dockerfiles in `docker` and `releases` to guide you. Note the `releases` are cross compiled with dependencies built from source, and the compiliation steps on the native OS would be considerbly simpler when using precompiled packages.
 
 Alternatively, you can run Freech on an isolated Linux container, using [Docker](https://www.docker.com/). First, [install Docker on your system](https://docs.docker.com/installation/#installation). Then run:
 

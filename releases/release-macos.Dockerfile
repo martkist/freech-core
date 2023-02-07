@@ -1,6 +1,6 @@
+FROM ubuntu:20.04
 ARG TAG
 ARG MAKEOPTS
-FROM ubuntu:20.04
 LABEL maintainer="Martkist Developers"
 
 RUN apt-get update
@@ -23,7 +23,7 @@ RUN tar -zxf Xcode-12.1-12A7403-extracted-SDK-with-libcxx-headers.tar.gz
 
 WORKDIR /depends
 ENV HOST=x86_64-apple-darwin16
-RUN make HOST=$HOST $MAKEOPTS 
+RUN make HOST=$HOST ${MAKEOPTS}
 ENV DEPENDS=/depends/$HOST
 
 WORKDIR /
@@ -36,8 +36,9 @@ RUN git submodule update --init
 
 RUN ./autotool.sh
 RUN CONFIG_SITE=${DEPENDS}/share/config.site ./configure -without-boost-locale --prefix=$DEPENDS --disable-ccache --disable-maintainer-mode --disable-dependency-tracking CPPFLAGS="-Wno-narrowing -Wno-reserved-user-defined-literal" CXXFLAGS="-Wno-narrowing -Wno-reserved-user-defined-literal"
-RUN make CPPFLAGS="-DBOOST_SYSTEM_ENABLE_DEPRECATED" LDFLAGS="-static" $MAKEOPTS
+RUN make CPPFLAGS="-DBOOST_SYSTEM_ENABLE_DEPRECATED" LDFLAGS="-static -Wl,-s" ${MAKEOPTS}
 
-RUN tar -czvf freech-core-$TAG-$HOST.tar.gz freechd
+ENV PACKAGE=freech-core-${TAG}-$HOST.tar.gz
+RUN tar -czvf $PACKAGE freechd
 RUN mkdir /outputs
-RUN cp freech-core-$TAG-$HOST.tar.gz /outputs/
+RUN cp $PACKAGE /outputs/

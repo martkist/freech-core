@@ -2,8 +2,9 @@
 # Dockerfile for building Freech peer-to-peer freedom of speech
 # base daemon only, no UI
 #
-ARG TAG
 FROM ubuntu:20.04
+ARG TAG
+ARG MAKEOPTS=-j3
 LABEL maintainer="Martkist Developers"
 LABEL tag=${TAG}
 
@@ -16,7 +17,7 @@ RUN git clone https://github.com/martkist/freech-core.git
 WORKDIR /freech-core
 RUN git checkout ${TAG}
 RUN ./bootstrap.sh
-RUN make -j4
+RUN make ${MAKEOPTS}
 
 # Configure HOME directory
 # and persist freech data directory as a volume
