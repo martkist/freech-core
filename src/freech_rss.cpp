@@ -152,7 +152,7 @@ int generateRSS(string uri, string *output)
                 else postTitle = postAuthor;
                 postMsg = find_value(userpost,"msg").get_str();
             }
-            else   // it's a retwist
+            else   // it's a refreech
             {               
                 postAuthor = find_value(rt.get_obj(),"n").get_str();
                 postTitle = postAuthor + " - via " + find_value(userpost,"n").get_str();

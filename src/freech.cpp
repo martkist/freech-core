@@ -4427,7 +4427,7 @@ Value newshorturl(const Array& params, bool fHelp)
     string uid_k_64 = EncodeBase64(&vch[0], vch.size());
 
     Array uriOptions;
-    uriOptions.push_back(string("twist:")+uid_k_64);
+    uriOptions.push_back(string("freech:")+uid_k_64);
 
     return uriOptions;
 }
@@ -4436,20 +4436,20 @@ Value decodeshorturl(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 2 )
         throw runtime_error(
-            "decodeshorturl <twist:xxx> [timeout_sec=90]\n"
+            "decodeshorturl <freech:xxx> [timeout_sec=90]\n"
             "Decodes a shortened URL by freech. May take some time to complete, like dhtget etc.\n"
             "Returns the original [URL,mimetype] or error if not found, timeout");
 
-    string strTwistURI = params[0].get_str();
+    string strFreechURI = params[0].get_str();
     int timeout = 0;
     if( params.size() > 1 )
         timeout = params[1].get_int();
 
-    string protocol("twist:");
-    if (strTwistURI.find(protocol) != 0) {
+    string protocol("freech:");
+    if (strFreechURI.find(protocol) != 0) {
         throw JSONRPCError(RPC_PARSE_ERROR, "protocol prefix error");
     }
-    string uid_k_64 = strTwistURI.substr(protocol.size());
+    string uid_k_64 = strFreechURI.substr(protocol.size());
     if (uid_k_64.length() < 12) {
         throw JSONRPCError(RPC_PARSE_ERROR, "base64 string too small");
     }

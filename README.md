@@ -21,7 +21,7 @@ not interoperate with existing networks (on purpose).
 
 ## Compiling
 
-Build instructions are in flux as we improve the state of the forked twister-core, which had incomplete build instructions. See `docs/build-XXX.md`.
+Build instructions are in flux as we improve the state of the forked freech-core, which had incomplete build instructions. See `docs/build-XXX.md`.
 
 You can also make reference to the Dockerfiles in `docker` and `releases` to guide you. Note the `releases` are cross compiled with dependencies built from source, and the compiliation steps on the native OS would be considerbly simpler when using precompiled packages.
 

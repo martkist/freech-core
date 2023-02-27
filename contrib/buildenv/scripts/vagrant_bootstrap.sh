@@ -120,7 +120,7 @@ If you want to do some development or other stuff then...
  
  This will give you some nice to have commands like
  * freech start|stop   -  to start and stop the server
- * twisted              -  alias to ~/twisted-core/twisted
+ * freechd              -  alias to freechd
 
 
  Good luck!
