@@ -25,5 +25,5 @@ ENV HOME /root
 VOLUME /root/.freech
 
 # Run freechd by default
-ENTRYPOINT ["/freech-core/freechd", "-rpcuser=user", "-rpcpassword=pwd", "-rpcallowip=127.0.0.1", "-htmldir=/freech-html", "-printtoconsole"]
+ENTRYPOINT ["/freech-core/freechd", "-rpcuser=user", "-rpcpassword=pwd", "-rpcallowip=127.0.0.1", "-printtoconsole"]
 CMD ["-port=4033"]
